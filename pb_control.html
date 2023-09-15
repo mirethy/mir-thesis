@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Playback</title>
+<link rel="stylesheet" href="w3.css">
+ <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+<script language="javascript">
+function objEvent(event,name,value,time)
+{
+this.event=event
+this.name=name
+this.value=value
+this.time=time
+}
+inPlay = false;
+
+function retrieveEvents(procstr)
+{
+evObj = new Array()
+
+toti=0
+i=procstr.indexOf("<eventblock>")
+while (i!=-1)
+	{
+	
+eventstr = procstr.substring(i+12,procstr.indexOf("</eventblock>",i))
+
+	evObj[toti] = new objEvent		
+evObj[toti].event=eventstr.substring(eventstr.indexOf("<event>")+7,eventstr.indexOf("</event>"));
+evObj[toti].name=eventstr.substring(eventstr.indexOf("<name>")+6,eventstr.indexOf("</name>"));
+evObj[toti].value=eventstr.substring(eventstr.indexOf("<value>")+7,eventstr.indexOf("</value>"));
+evObj[toti].time=eventstr.substring(eventstr.indexOf("<time>")+6,eventstr.indexOf("</time>"));
+	toti++
+	i=procstr.indexOf("<eventblock>",i+1)
+	}
+return evObj
+}
+
+
+
+function playData(speed)
+{
+if (inPlay) return;
+
+inPlay = true;
+
+timeoffset = parseInt(document.forms[0].offset.value);
+if (isNaN(timeoffset)) {timeoffset = 0};
+
+
+document.forms[0].status.value="Playing...";
+lasttime=0
+handlecount = 0;
+handle = new Array();
+for (i=0; i<eventArray.length; i++)
+	{
+	
+	//if (window.top.page.document.getElementsByName(eventArray[i].name)[0].id)
+		//{boxid=top.page.document.getElementsByName(eventArray[i].name)[0].id}
+//boxid = top.page.document.getElementsByName(eventArray[i].name)[0].id;
+	//alert(eventArray[i].name + " "+boxid)
+if (eventArray[i].event == "mouseover")
+		{
+		boxid=top.page.document.getElementsByName(eventArray[i].name)[0].id;
+		handle[handlecount] = setTimeout("top.page.showBox('"+boxid+"','mouseover')",(eventArray[i].time-timeoffset)/speed);
+		handlecount++;
+		}
+	if (eventArray[i].event == "mouseout")
+		{
+		boxid=top.page.document.getElementsByName(eventArray[i].name)[0].id;
+		handle[handlecount] = setTimeout("top.page.hideBox('"+boxid+"','mouseout')", (eventArray[i].time-timeoffset)/speed)
+		handlecount++;
+		}
+if (eventArray[i].event == "touchover")
+		{
+		boxid=top.page.document.getElementsByName(eventArray[i].name)[0].id;
+		handle[handlecount] = setTimeout("top.page.showBox('"+boxid+"','touchover')",(eventArray[i].time-timeoffset)/speed);
+		handlecount++;
+		}
+	if (eventArray[i].event == "touchout")
+		{
+		boxid=top.page.document.getElementsByName(eventArray[i].name)[0].id;
+		handle[handlecount] = setTimeout("top.page.hideBox('"+boxid+"','touchout')", (eventArray[i].time-timeoffset)/speed)
+		handlecount++;
+		}
+if (eventArray[i].event == "gazeover")
+		{
+		boxid=eventArray[i].name;
+		handle[handlecount] = setTimeout("top.page.$('#"+boxid+"').addClass('w3-border-red w3-border')",(eventArray[i].time-timeoffset)/speed);
+		console.log("top.page.$('#"+boxid+"').addClass('w3-red')")
+		handlecount++;
+		}
+	if (eventArray[i].event == "gazeout")
+		{
+		boxid=eventArray[i].name;
+		handle[handlecount] = setTimeout("top.page.$('#"+boxid+"').removeClass('w3-border-red w3-border')", (eventArray[i].time-timeoffset)/speed)
+		handlecount++;
+		}
+
+	lasttime=eventArray[i].time-timeoffset;	
+	}
+handle[handlecount] = setTimeout("document.forms[0].status.value='Finished playing';inPlay=false;", lasttime/speed+500);
+}
+
+function stopPlay()
+{
+if (!inPlay) return;
+
+inPlay=false;
+for (i=0;i<handlecount;i++)
+	{
+	clearTimeout(handle[i]);
+	}
+document.forms[0].status.value='Finished playing';inPlay=false;
+}
+
+function getValues()
+{
+var timeset = false;
+eventArray = new Array();
+for (i=0;i<parent.opener.playArray.length;i++)
+	{eventArray[i] = parent.opener.playArray[i];
+	if ((eventArray[i].event == "mouseover" | eventArray[i].event == "touchover" | eventArray[i].event == "gazeover") &!timeset) {document.forms[0].offset.value = eventArray[i].time;timeset = true;}
+	if (eventArray[i].value == "succeeded") {document.forms[0].endtime.value = eventArray[i].time;}
+	}
+
+if (document.forms[0].filename.value=="")	{document.forms[0].filename.value = parent.opener.playexp;}
+document.forms[0].set.value = parent.opener.playset;
+document.forms[0].choice.value = parent.opener.playchoice;
+document.forms[0].status.value = "ready...";
+
+parent.page.location.href = "playback.php?subject=test&condnum="+parent.opener.playcondnum+"&json="+parent.opener.playexp+"&set="+parent.opener.playset;	
+}
+
+</script>
+</head>
+
+<body onLoad="getValues()" class="w3-blue-grey">
+<div class="w3-container w3-padding-small">
+<p>
+<form>
+	<input onClick="playData(1)" type="button" name="Play" value="Play 1X">
+	<input onClick="playData(2)" type="button" name="Play2" value="Play 2X">
+	<input onClick="stopPlay()" type="button" name="stop" value="Stop">
+	json:<input type="text" value="" name="filename" size=20 onChange="getValues()">
+	set: <input type="text" value="" name="set" value="">
+	time-offset (ms): <input type="text" value="" name="offset" size=5>
+	end time: <input type=text value="" name="endtime">
+	choice: <input type=text value="" name="choice">
+	status: <input type=text value="" name="status">
+</p>
+</form>
+</div>
+</body>
+</html>

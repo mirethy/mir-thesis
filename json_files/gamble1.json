@@ -1,0 +1,173 @@
+{
+	"styles": [
+		{
+			"name": "defaults",
+			"mainClass": [
+				"w3-white",
+				"w3-center",
+				"w3-padding-small"
+			],
+			"txtClass": [
+				"w3-light-blue"
+			],
+			"boxClass": [
+				"w3-indigo"
+			],
+			"labelClass": [
+				"w3-white"
+			],
+			"btnClass": [
+				"w3-button",
+				"w3-block",
+				"w3-border",
+				"w3-border-gray",
+				"w3-round-xlarge",
+				"w3-display-middle"
+			],
+			"btnTxt": [
+				"w3-white"
+			],
+			"btnSel": [
+				"w3-blue",
+				"w3-hover-blue"
+			],
+			"btnNotSel": [
+				"w3-light-blue"
+			]
+		},
+		{
+			"name": "A",
+			"mainClass": "default",
+			"txtClass": "default",
+			"boxClass": "default",
+			"boxType": "closed"
+		},
+		{
+			"name": "label",
+			"width": "10%",
+			"labelClass": "default",
+			"height": "50px"
+		},
+		{
+			"name": "button",
+			"btnClass": "default",
+			"btnTxt": "default",
+			"btnSel": "default",
+			"btnNotSel": "default",
+			"height": "30px",
+			"width": "10%"
+		}
+	],
+	"opt": [
+		{
+			"name": "A",
+			"label": "option A",
+			"width": "30%"
+		},
+		{
+			"name": "A1",
+			"label": "option B",
+			"width": "30%"
+		}
+	],
+	"attr": [
+		{
+			"name": "attr1",
+			"label": "Amount",
+			"height": "50px"
+		},
+		{
+			"name": "attr2",
+			"label": "Delivery time",
+			"height": "50px"
+		}
+	],
+	"cell": [
+		{
+			"A": {
+				"var": "box1",
+				"txt": "inside box1",
+				"box": "",
+				"style": "A"
+			},
+			"A1": {
+				"var": "box2",
+				"txt": "inside box1",
+				"box": "",
+				"style": "A"
+			}
+		},
+		{
+			"A": {
+				"var": "box3",
+				"txt": "inside box1",
+				"box": "",
+				"style": "A"
+			},
+			"A1": {
+				"var": "box4",
+				"txt": "inside box1",
+				"box": "",
+				"style": "A"
+			}
+		}
+	],
+	"delay": {
+		"var": [
+			"box1",
+			"box2",
+			"box3",
+			"box4"
+		],
+		"delays": [
+			[
+				0,
+				0,
+				0,
+				0
+			],
+			[
+				0,
+				0,
+				0,
+				0
+			],
+			[
+				0,
+				0,
+				0,
+				0
+			],
+			[
+				0,
+				0,
+				0,
+				0
+			]
+		]
+	},
+	"optOrders": [
+		{
+			"name": "order1",
+			"opt": [
+				"A",
+				"A1"
+			],
+			"attr": "standard"
+		}
+	],
+	"sets": [
+		{
+			"name": "dynSet",
+			"optOrder": [
+				"order1"
+			],
+			"layout": "optionCol",
+			"buttons": "on",
+			"displayLabels": "all",
+			"addedVars": [
+				"test=2"
+			]
+		}
+	]
+}

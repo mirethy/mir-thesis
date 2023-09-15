@@ -1,0 +1,209 @@
+{
+	"styles": [
+		{
+			"name": "defaults",
+			"mainClass": [
+				"w3-white",
+				"w3-center",
+				"w3-padding-large",
+				"w3-margin"
+			],
+			"txtClass": [
+				"w3-light-blue"
+			],
+			"boxClass": [
+				"w3-grey",
+				"w3-small",
+				"w3-margin-bottom"
+			],
+			"labelClass": [
+				"w3-white"
+			],
+			"btnClass": [
+				"w3-button",
+				"w3-block",
+				"w3-border",
+				"w3-border-light-blue",
+				"w3-round-xlarge",
+				"w3-display-middle"
+			],
+			"btnTxt": [
+				"w3-white"
+			],
+			"btnSel": [
+				"w3-light-blue",
+				"w3-light-blue"
+			],
+			"btnNotSel": [
+				"w3-light-blue"
+			]
+		},
+		{
+			"name": "A",
+			"mainClass": "default",
+			"txtClass": [
+				"w3-light-blue"
+			],
+			"boxClass": "default",
+			"boxType": "blur",
+			"height": "80px",
+			"width": "100%"
+		},
+		{
+			"name": "B",
+			"mainClass": "default",
+			"txtClass": [
+				"w3-light-blue"
+			],
+			"boxClass": "default",
+			"boxType": "blur",
+			"height": "100px",
+			"width": "100%"
+		},
+		{
+			"name": "label",
+			"width": "30%",
+			"labelClass": "default",
+			"boxClass": "w3-light-blue",
+			"height": "120px"
+		},
+		{
+			"name": "button",
+			"btnClass": "default",
+			"btnTxt": "default",
+			"btnSel": "default",
+			"btnNotSel": "default",
+			"boxClass": "w3-light-blue",
+			"height": "2px",
+			"width": "60%"
+		}
+	],
+	"opt": [
+		{
+			"name": "A",
+			"label": "Option A",
+			"width": "20%",
+			"height": "10px",
+			"labelClass": [
+				"w3-light-blue"
+			]
+		},
+		{
+			"name": "B",
+			"label": "Option B",
+			"width": "20%",
+			"height": "10px",
+			"labelClass": [
+				"w3-light-blue"
+			]
+		}
+	],
+	"attr": [
+		{
+			"name": "Amount",
+			"label": "Amount",
+			"height": "50px",
+			"boxClass": "w3-light-blue"
+		},
+		{
+			"name": "Time",
+			"label": "Delivery Time",
+			"height": "50px",
+			"boxClass": "w3-light-blue"
+		}
+	],
+	"cell": [
+		{
+			"A": {
+				"var": "box1",
+				"txt": "10 Euro",
+				"box": "Amount A",
+				"style": "A"
+			},
+			"B": {
+				"var": "box2",
+				"txt": "12 Euro",
+				"box": "Amount B",
+				"style": "B"
+			},
+			"A2": {
+				"txt": " € 15,78 "
+			}
+		},
+		{
+			"A": {
+				"var": "box3",
+				"txt": "Today",
+				"box": "Time A",
+				"style": "A"
+			},
+			"B": {
+				"var": "box4",
+				"txt": "2 Weeks",
+				"box": "Time B",
+				"style": "A"
+			},
+			"A2": {
+				"txt": "4 weeks"
+			}
+		}
+	],
+	"delay": {
+		"var": [
+			"box1",
+			"box2",
+			"box3",
+			"box4"
+		],
+		"delays": [
+			[
+				0,
+				0,
+				0,
+				0
+			],
+			[
+				0,
+				0,
+				0,
+				0
+			],
+			[
+				0,
+				0,
+				0,
+				0
+			],
+			[
+				0,
+				0,
+				0,
+				0
+			]
+		]
+	},
+	"optOrders": [
+		{
+			"name": "order1",
+			"opt": [
+				"A",
+				"B"
+			],
+			"attr": "standard"
+		}
+	],
+	"sets": [
+		{
+			"name": "dynSet",
+			"optOrder": [
+				"order1"
+			],
+			"layout": "optionCol",
+			"buttons": "on",
+			"displayLabels": "all",
+			"addedVars": [
+				"test=2"
+			]
+		}
+	]
+}
